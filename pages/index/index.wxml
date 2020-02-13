@@ -1,0 +1,28 @@
+<!--index.wxml-->
+<view class="container">
+  <view class="statistics">
+      <text>{{ count }}想看</text>
+      <text>{{ doneCount }}已看</text>
+  </view>
+  <view class="header">
+    <image class="plus" src="../../assets/plus.png"/>
+    <input class="new-todo" value="{{ input }}" placeholder="添加书籍" auto-focus bindinput="inputChangeHandle" bindconfirm="addTodoHandle" bindblur="addTodoHandle"/>
+  </view>
+  <block wx:if="{{ todos.length }}">
+    <view class="todos">
+      <!-- List items should get the class `completed` when marked as completed -->
+      <view class="item{{ item.completed ? ' completed' : '' }}" wx:for="{{ todos }}" wx:key="{{ index }}" bindtap="toggleTodoHandle" data-index="{{ index }}">
+        <!-- completed: success, todo: circle -->
+        <icon class="checkbox" type="{{ item.completed ? 'success' : 'circle' }}"/>
+        <text class="name">{{ item.name }}</text>
+        <icon class="remove" type="clear" size="16" catchtap="removeTodoHandle" data-index="{{ index }}"/>
+      </view>
+    </view>
+  </block>
+  <block wx:else>
+    <view class="empty">
+      <text class="title">读书</text>
+      <text class="content">学而不思则罔，思而不学则殆</text>
+    </view>
+  </block>
+</view>
